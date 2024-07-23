@@ -16,4 +16,4 @@ Adjust the colors or images on the meditation wall as per your preference.
 For a complete experience, set the full screen mode (F11 in Google Chrome)
 
 ## License
-This project is open and download for anyone to use.
+This project is licensed under the MIT License.
