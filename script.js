@@ -1,7 +1,9 @@
 
-let timerValue = 0; // variable to store the remaining time in minutes
+let timerValue = null; // variable to store the remaining time in minutes
 let interval = null; 
 let output = document.querySelector("form");
+let language = document.documentElement.getAttribute("lang");
+console.log(language)
 
 // SETTING TIME: Title
 function updateTitleAndMeta() { //function, that updates the page title and meta element content according to the current timerValue in minutes (synchronizing the timer information with the actual countdown)
@@ -36,9 +38,10 @@ function getMinutesAndSeconds(value) {
 }
 
 // SETTING TIME: Button
-let invalidOutput = document.createElement("p"); 
+let Output2 = document.createElement("p"); 
 let invalidTextBlock = document.querySelector(".invalid_text_block");    
 let timerButton = document.querySelector(".timer_button");   
+let languageDiv = document.querySelector(".set-language")
 
 timerButton.addEventListener("click", function(event){
     event.preventDefault() // prevents the default behavior of the button
@@ -47,20 +50,39 @@ timerButton.addEventListener("click", function(event){
 
     if(!isNaN(input) && input > 0 && input <= 60) {
         output.style.display = "none";
+        languageDiv.style.display = "none";
         invalidTextBlock.textContent = "";
         startCountdown(input);
     } else if(input > 60) {
-        invalidTextBlock.textContent = "Vysoké číslo, můžete zadat maxmimálně 60 min!";
+        switch (language) {
+            case "cs":
+                invalidTextBlock.textContent = "Vysoké číslo, můžete zadat maximálně 60 min!";
+                break;
+            case "en":
+                invalidTextBlock.textContent = "High number, you can enter up to 60 minutes!";
+            }
         invalidTextBlock.style.color = "red";
-        document.querySelector(".invalid_text_block").appendChild(invalidOutput);
+        document.querySelector(".invalid_text_block").appendChild(Output2); 
     } else if(input <= 0) {
-        invalidTextBlock.textContent = "Nízké číslo, musíte zadat více, než 0 min!";
+        switch (language) {
+            case "cs":
+                invalidTextBlock.textContent = "Nízké číslo, musíte zadat více, než 0 min!";
+                break;
+            case "en":
+                invalidTextBlock.textContent = "Low number, you can enter up to 60 minutes!";
+        }
         invalidTextBlock.style.color = "red";
-        document.querySelector(".invalid_text_block").appendChild(invalidOutput);
+        document.querySelector(".invalid_text_block").appendChild(Output2);
     } else {
-        invalidTextBlock.textContent = "Chybné zadání, zadávejte pouze čísla!";
+        switch (language) {
+            case "cs":
+                invalidTextBlock.textContent = "Chybné zadání, zadávejte pouze čísla!";
+                break;
+            case "en":
+                invalidTextBlock.textContent = "Incorrect input, enter only numbers!";
+        }
         invalidTextBlock.style.color = "red";
-        document.querySelector(".invalid_text_block").appendChild(invalidOutput);
+        document.querySelector(".invalid_text_block").appendChild(Output2);
     } 
 })
 
@@ -69,12 +91,22 @@ timerButton.addEventListener("click", function(event){
 // STOP TIMER
 document.addEventListener("click", function(event) {   
     let timerForm = document.querySelector("form");
-    if (!timerForm.contains(event.target)) {
+    if (!timerForm.contains(event.target) && timerValue !== null) {
         let { minutes, seconds } = getMinutesAndSeconds(timerValue);
         output.style.display = "block";
-        invalidOutput.textContent = `Uběhlo ${minutes} minut a ${seconds} sekund.`;
-        invalidOutput.style.color = "green";
-        document.querySelector(".invalid_text_block").appendChild(invalidOutput);
+        languageDiv.style.display = "block";
+        switch (language) {
+            case "cs":
+                Output2.textContent = `Uběhlo ${minutes} minut a ${seconds} sekund.`;
+                break;
+            case "en":
+                Output2.textContent = `${minutes} minutes and ${seconds} second have passed.`;
+        }
+        Output2.style.color = "green";
+        Output2.style.position = "relative";
+        Output2.style.bottom = "22px";
+        document.querySelector(".invalid_text_block").appendChild(Output2);
+    } else {
     }
     if (!timerForm.contains(event.target) && interval !== null) {
         clearInterval(interval);
@@ -126,3 +158,5 @@ wallChanger(img2Button, "image");
 wallChanger(img3Button, "image");
 wallChanger(img4Button, "image");
 wallChanger(img5Button, "image");
+
+
