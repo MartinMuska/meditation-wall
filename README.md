@@ -1,10 +1,9 @@
 # My Early Code Project
 
-This is an early attempt at writing code. The project includes a simple web calculator. 
-the calculator was created with the intention of typing some mathematical symbols from the keyboard, therefore some symbols are missing.
+This is my second attempt at writing code. While working on the computer, I thought about how to take effective breaks.
 
 ## Features
-- mathematics operations
+- time setting for Zen meditation (watching the wall)
   
 ## Installation
 Open the `index.html` file in a web browser.
